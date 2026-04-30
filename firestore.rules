@@ -1,0 +1,39 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isValidNewUser(d) {
+      return d.nickname is string
+          && d.nickname.size() > 0
+          && d.nickname.size() <= 20
+          && d.bestScore == 0
+          && d.createdAt == request.time
+          && d.lastPlayedAt == request.time;
+    }
+
+    function isValidUpdate(newDoc, oldDoc) {
+      return newDoc.nickname.size() <= 20
+          && newDoc.bestScore is number
+          && newDoc.bestScore >= oldDoc.bestScore
+          && newDoc.bestScore <= 1000
+          && newDoc.createdAt == oldDoc.createdAt
+          && newDoc.lastPlayedAt == request.time
+          && request.time > oldDoc.lastPlayedAt + duration.value(5, 's');
+    }
+
+    match /users/{uid} {
+      allow read: if true;
+
+      allow create: if request.auth != null
+                    && request.auth.uid == uid
+                    && isValidNewUser(request.resource.data);
+
+      allow update: if request.auth != null
+                    && request.auth.uid == uid
+                    && isValidUpdate(request.resource.data, resource.data);
+
+      allow delete: if false;
+    }
+  }
+}
