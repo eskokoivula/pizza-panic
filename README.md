@@ -1,14 +1,17 @@
 # Pizza Panic
 
-A small Finnish meme pizza game. Mobile-first, browser-based, music-driven.
+Is a Finnish meme pizza game I built with my son to teach him basics of vibe coding.
+Mobile-first, browser-based, music-driven, and legally not responsible for what it does to your dopamine receptors, created under conditions that could loosely be described as “product development.
 
 **Live:** https://pizza-paniikki.web.app
 
 ## What this is
 
-An experimental project I built with my son to teach him the ropes of vibe coding. The game itself is a tribute to an old Finnish pizza meme that has refused to die.
+On the surface, it is a simple mobile-first pizza game. Underneath, it is a serious cultural preservation project dedicated to an old Finnish pizza meme that has somehow outlived trends, platforms, attention spans, and majority of startups.
+The idea was simple: take something deeply stupid, treat it with unnecessary respect, make it playable on mobile so he can share it on TikTok and take all the credits.
 
-It's an MVP. One HTML file, no build step, no framework, no bundler. Web Audio API for the music, Firebase for auth and the leaderboard.
+It is fast, chaotic, Finnish, and about pizza.
+In other words, a perfectly reasonable use of modern technology.
 
 ## How to play
 
@@ -23,6 +26,7 @@ Avoid the **KARVA** (hair) topping. Instant game over.
 - Firebase Auth (Google sign-in) + Firestore for the leaderboard
 - Firebase Hosting for the public URL
 - Anti-cheat in Firestore security rules: monotonic best score, ≤1000 cap, 5 s rate-limit, immutable createdAt
+- Parental supervision, technically
 
 ## Local dev
 
