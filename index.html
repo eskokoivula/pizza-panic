@@ -76,6 +76,60 @@ html, body {
   color: #fff;
 }
 
+/* ===== INTRO SPLASH ===== */
+#intro-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  background:
+    radial-gradient(circle at 50% 4%, rgba(215,38,61,0.32), transparent 52%),
+    radial-gradient(circle at 50% 104%, rgba(27,77,140,0.6), transparent 55%),
+    repeating-linear-gradient(180deg, rgba(255,255,255,0.035) 0 16px, rgba(215,38,61,0.05) 16px 32px),
+    linear-gradient(180deg, #0B1020 0%, #111b40 55%, #0B1020 100%);
+}
+#intro-overlay.hidden { display: none; }
+.intro-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000;
+}
+.intro-proceed {
+  position: absolute;
+  bottom: 7%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: fit-content;
+  font-family: var(--display);
+  font-size: 28px;
+  letter-spacing: 0.04em;
+  padding: 16px 44px;
+  background: var(--basil);
+  color: #07120b;
+  border: 4px solid var(--charcoal);
+  border-radius: 24px;
+  box-shadow: var(--shadow-button);
+  cursor: pointer;
+  touch-action: manipulation;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.intro-proceed.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  animation: btn-pulse 1.8s 0.5s ease-in-out infinite;
+}
+.intro-proceed:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 var(--charcoal);
+}
+
 .title {
   font-family: var(--display);
   font-size: clamp(66px, 19vw, 108px);
@@ -1352,6 +1406,12 @@ html, body {
 
 <div id="app">
 
+  <!-- ============ INTRO SPLASH ============ -->
+  <div id="intro-overlay">
+    <video id="introVideo" class="intro-video" muted playsinline autoplay preload="auto" src="assets/honter-intro.mp4"></video>
+    <button id="introProceed" class="intro-proceed" type="button">LIGHT IT UP</button>
+  </div>
+
   <!-- ============ START SCREEN ============ -->
   <section id="screen-start" class="screen start-screen active">
     <div class="warning-banner" id="warningBanner">
@@ -2555,6 +2615,44 @@ html, body {
   // Inline onclick="game.foo()" attributes need a global. Module scope hides
   // game by default, so re-export to window.
   window.game = game;
+
+  // ===== Intro splash: play silent video, reveal proceed button at the end =====
+  (function initIntro() {
+    const overlay = document.getElementById('intro-overlay');
+    const video = document.getElementById('introVideo');
+    const proceed = document.getElementById('introProceed');
+    if (!overlay || !video || !proceed) return;
+
+    let revealed = false;
+    function reveal() {
+      if (revealed) return;
+      revealed = true;
+      proceed.classList.add('show');
+    }
+    function finish() {
+      overlay.classList.add('hidden');
+      try { video.pause(); } catch (e) {}
+      if (window.game && typeof game.show === 'function') game.show('start');
+    }
+
+    video.muted = true; // belt-and-braces for mobile autoplay
+    video.addEventListener('ended', reveal);
+    video.addEventListener('error', reveal);
+    // Tap anywhere during playback to skip to the end and reveal the button.
+    overlay.addEventListener('click', function (e) {
+      if (e.target === proceed) return;
+      if (!revealed) {
+        try { video.currentTime = video.duration || 0; } catch (e2) {}
+        reveal();
+      }
+    });
+    proceed.addEventListener('click', function (e) { e.stopPropagation(); finish(); });
+
+    const playAttempt = video.play();
+    if (playAttempt && playAttempt.catch) playAttempt.catch(reveal);
+    // Safety net: never trap the user if the video can't play.
+    setTimeout(reveal, 8000);
+  })();
 </script>
 </body>
 </html>
