@@ -29,20 +29,10 @@
 html, body {
   height: 100%;
   font-family: var(--body);
-  background: var(--cream);
+  background: var(--charcoal);
   color: var(--charcoal);
   overscroll-behavior: none;
   user-select: none;
-}
-
-body {
-  background-image:
-    radial-gradient(circle at 12% 18%, rgba(215,38,61,0.09) 7px, transparent 8px),
-    radial-gradient(circle at 78% 42%, rgba(27,77,140,0.09) 5px, transparent 6px),
-    radial-gradient(circle at 28% 72%, rgba(215,38,61,0.08) 6px, transparent 7px),
-    radial-gradient(circle at 88% 88%, rgba(27,77,140,0.08) 4px, transparent 5px),
-    radial-gradient(circle at 52% 32%, rgba(153,69,255,0.08) 4px, transparent 5px);
-  background-size: 280px 280px;
 }
 
 #app {
@@ -50,7 +40,23 @@ body {
   margin: 0 auto;
   min-height: 100vh;
   position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 4%, rgba(215,38,61,0.32), transparent 52%),
+    radial-gradient(circle at 50% 104%, rgba(27,77,140,0.6), transparent 55%),
+    repeating-linear-gradient(180deg, rgba(255,255,255,0.035) 0 16px, rgba(215,38,61,0.05) 16px 32px),
+    linear-gradient(180deg, #0B1020 0%, #111b40 55%, #0B1020 100%);
 }
+#app::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='66'%20height='66'%3E%3Cpath%20d='M33%2010L38%2026L55%2026L41%2036L46%2053L33%2042L20%2053L25%2036L11%2026L28%2026Z'%20fill='%23ffffff'%20opacity='0.14'/%3E%3C/svg%3E");
+  background-size: 66px 66px;
+  pointer-events: none;
+  z-index: 0;
+}
+.screen { position: relative; z-index: 1; }
 
 .screen {
   display: none;
@@ -68,24 +74,7 @@ body {
   gap: 20px;
   padding-top: 48px;
   color: #fff;
-  position: relative;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 50% 4%, rgba(215,38,61,0.32), transparent 52%),
-    radial-gradient(circle at 50% 104%, rgba(27,77,140,0.6), transparent 55%),
-    repeating-linear-gradient(180deg, rgba(255,255,255,0.035) 0 16px, rgba(215,38,61,0.05) 16px 32px),
-    linear-gradient(180deg, #0B1020 0%, #111b40 55%, #0B1020 100%);
 }
-.start-screen::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='66'%20height='66'%3E%3Cpath%20d='M33%2010L38%2026L55%2026L41%2036L46%2053L33%2042L20%2053L25%2036L11%2026L28%2026Z'%20fill='%23ffffff'%20opacity='0.14'/%3E%3C/svg%3E");
-  background-size: 66px 66px;
-  pointer-events: none;
-  z-index: 0;
-}
-.start-screen > * { position: relative; z-index: 1; }
 
 .title {
   font-family: var(--display);
@@ -415,6 +404,7 @@ body {
 .countdown-label {
   font-size: 11px;
   font-weight: 800;
+  color: var(--cream);
   opacity: 0.65;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -422,6 +412,7 @@ body {
 .countdown-value {
   font-family: var(--display);
   font-size: 22px;
+  color: var(--cream);
 }
 .countdown-bar {
   height: 12px;
@@ -536,10 +527,10 @@ body {
   align-items: center;
   justify-content: center;
 }
-.bake-zone-alikypsa  { width: 62%; background: var(--yellow); }
+.bake-zone-alikypsa  { width: 62%; background: var(--blue); }
 .bake-zone-perfecto {
   width: 23%;
-  background: var(--basil);
+  background: var(--cream);
   border-left: 3px solid var(--charcoal);
   border-right: 3px solid var(--charcoal);
 }
@@ -548,9 +539,9 @@ body {
 .zone-label {
   font-family: var(--display);
   font-size: 11px;
-  color: white;
+  color: var(--charcoal);
   letter-spacing: 0.08em;
-  text-shadow: 1px 1px 0 var(--charcoal);
+  text-shadow: none;
 }
 
 .bake-indicator {
@@ -585,6 +576,7 @@ body {
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  color: var(--cream);
   opacity: 0.6;
 }
 
@@ -725,7 +717,7 @@ body {
   font-size: clamp(38px, 11vw, 54px);
   letter-spacing: 0.02em;
   line-height: 0.95;
-  color: var(--charcoal);
+  color: var(--cream);
   text-shadow: 4px 4px 0 var(--pink);
   transform: rotate(-2deg);
   animation: drop-in 0.5s 0.25s backwards cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -733,7 +725,7 @@ body {
 #screen-karva    .game-over-title { text-shadow: 4px 4px 0 var(--pizza-red); }
 #screen-hidas    .game-over-title { text-shadow: 4px 4px 0 var(--yellow); }
 #screen-alikypsa .game-over-title { text-shadow: 4px 4px 0 var(--yellow); }
-#screen-palanut  .game-over-title { color: var(--pizza-red); text-shadow: 4px 4px 0 var(--charcoal); }
+#screen-palanut  .game-over-title { text-shadow: 4px 4px 0 var(--pizza-red); }
 #screen-vaara    .game-over-title { text-shadow: 4px 4px 0 var(--pizza-red); }
 
 .score-display {
@@ -977,7 +969,7 @@ body {
   font-family: var(--display);
   font-size: clamp(34px, 10vw, 48px);
   letter-spacing: 0.02em;
-  color: var(--charcoal);
+  color: var(--cream);
   text-shadow: 4px 4px 0 var(--pink);
   transform: rotate(-2deg);
   animation: drop-in 0.5s 0.1s backwards cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -1066,7 +1058,7 @@ body {
   background: transparent;
   border: 0;
   cursor: pointer;
-  color: var(--charcoal);
+  color: var(--cream);
   opacity: 0.6;
   padding: 8px 12px;
   margin-top: 8px;
@@ -1079,7 +1071,7 @@ body {
   min-height: 18px;
   color: var(--pizza-red);
 }
-.login-status.muted { color: var(--charcoal); opacity: 0.6; }
+.login-status.muted { color: var(--cream); opacity: 0.6; }
 .login-status.error {
   background: var(--pizza-red);
   color: var(--cream);
@@ -1129,7 +1121,7 @@ body {
   font-family: var(--display);
   font-size: clamp(34px, 10vw, 48px);
   letter-spacing: 0.04em;
-  color: var(--charcoal);
+  color: var(--cream);
   text-shadow: 4px 4px 0 var(--yellow);
   transform: rotate(-2deg);
   animation: drop-in 0.5s 0.1s backwards cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -1467,7 +1459,7 @@ body {
       </div>
     </div>
 
-    <div class="oven-instruction">STOP ON GREEN!</div>
+    <div class="oven-instruction">STOP ON WHITE!</div>
 
     <div class="oven-stage">
       <div class="oven-flames">
