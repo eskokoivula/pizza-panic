@@ -68,8 +68,14 @@ node_modules/
 # dataconnect generated files
 .dataconnect
 
-# Copyrighted meme audio — not shipped in repo, see assets/README.md
+# Large / copyrighted media — not shipped in repo, see assets/README.md
+# (deployed via Firebase from disk, kept out of git)
 assets/pizza-song.mp3
+assets/honter-song.m4a
+assets/honter-intro.mp4
+
+# Local session state — never tracked (one handoff.md per project, local only)
+handoff.md
 
 # macOS
 .DS_Store
