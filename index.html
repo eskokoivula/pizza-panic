@@ -2650,9 +2650,9 @@ html, body {
 
     const playAttempt = video.play();
     if (playAttempt && playAttempt.catch) playAttempt.catch(reveal);
-    // Reveal the proceed button shortly after the intro starts, so the player
-    // can move on quickly instead of waiting for the whole clip to finish.
-    const PROCEED_DELAY_MS = 1200;
+    // Reveal the proceed button last — after THE GAME drops in (~1.6s) and the
+    // character spews powder (~2.4s), so the intro beats land in order.
+    const PROCEED_DELAY_MS = 3500;
     setTimeout(reveal, PROCEED_DELAY_MS);
   })();
 </script>
