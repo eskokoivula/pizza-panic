@@ -2650,8 +2650,10 @@ html, body {
 
     const playAttempt = video.play();
     if (playAttempt && playAttempt.catch) playAttempt.catch(reveal);
-    // Safety net: never trap the user if the video can't play.
-    setTimeout(reveal, 8000);
+    // Reveal the proceed button shortly after the intro starts, so the player
+    // can move on quickly instead of waiting for the whole clip to finish.
+    const PROCEED_DELAY_MS = 1200;
+    setTimeout(reveal, PROCEED_DELAY_MS);
   })();
 </script>
 </body>
