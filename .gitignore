@@ -79,3 +79,6 @@ handoff.md
 
 # macOS
 .DS_Store
+.openai-key
+_icongen/
+_candidates2.html

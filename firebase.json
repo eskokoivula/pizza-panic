@@ -9,6 +9,7 @@
       "**/.*",
       "**/node_modules/**",
       "**/*.md",
+      "scripts/**",
       "mockup.html",
       "firestore.rules",
       "*.log"

@@ -39,6 +39,7 @@ html, body {
   max-width: 430px;
   margin: 0 auto;
   min-height: 100vh;
+  min-height: 100dvh;
   position: relative;
   overflow: hidden;
   background:
@@ -62,6 +63,7 @@ html, body {
   display: none;
   flex-direction: column;
   min-height: 100vh;
+  min-height: 100dvh;
   padding: 20px;
 }
 .screen.active { display: flex; }
@@ -197,8 +199,8 @@ html, body {
 }
 .ca-addr {
   font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 0.02em;
+  font-size: 14px;
+  letter-spacing: 0.04em;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -232,7 +234,7 @@ html, body {
   top: 50%;
   left: 50%;
   font-family: var(--display);
-  font-size: clamp(56px, 18vw, 110px);
+  font-size: clamp(36px, 14vw, 76px);
   color: var(--pizza-red);
   text-shadow: 5px 5px 0 var(--charcoal);
   letter-spacing: 0.04em;
@@ -291,7 +293,7 @@ html, body {
 }
 
 /* ===== BAKE SCREEN ===== */
-.bake-screen { gap: 14px; padding-top: 24px; }
+.bake-screen { gap: 10px; padding-top: 14px; }
 
 .hud {
   display: flex;
@@ -327,8 +329,8 @@ html, body {
   gap: 10px;
 }
 .customer-face {
-  width: 84px;
-  height: 84px;
+  width: 74px;
+  height: 74px;
   flex-shrink: 0;
   filter: var(--shadow-sticker);
   transform: rotate(-4deg);
@@ -418,7 +420,7 @@ html, body {
   background: white;
   border: 3px solid var(--charcoal);
   border-radius: 16px;
-  padding: 10px 6px 8px;
+  padding: 7px 6px 6px;
   box-shadow: 0 3px 0 var(--charcoal);
   cursor: pointer;
   display: flex;
@@ -490,7 +492,7 @@ html, body {
   color: var(--charcoal);
   border: 4px solid var(--charcoal);
   border-radius: 22px;
-  padding: 16px;
+  padding: 13px 16px;
   box-shadow: var(--shadow-button);
   cursor: pointer;
   letter-spacing: 0.04em;
@@ -937,6 +939,7 @@ html, body {
 /* ===== AUTH UI on START SCREEN ===== */
 .auth-best {
   background: white;
+  color: var(--charcoal);
   border: 3px solid var(--charcoal);
   border-radius: 14px;
   padding: 8px 22px;
@@ -1373,6 +1376,10 @@ html, body {
       </g>
     </symbol>
 
+    <symbol id="t-line" viewBox="0 0 80 80">
+      <image href="assets/topping-line.png" x="0" y="0" width="80" height="80"/>
+    </symbol>
+
     <symbol id="cust-rento" viewBox="0 0 100 100">
       <circle cx="50" cy="55" r="42" fill="#E8B698" stroke="#0B1020" stroke-width="4"/>
       <path d="M14 42 Q20 14 50 14 Q80 14 86 42 Q70 30 50 32 Q30 30 14 42 Z" fill="#3A2418" stroke="#0B1020" stroke-width="4" stroke-linejoin="round"/>
@@ -1807,12 +1814,12 @@ html, body {
   } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
   const firebaseConfig = {
-    apiKey: "AIzaSyBCNeVxq84QC5H5HLwUjcSjdCAj95aAaWA",
-    authDomain: "pizza-paniikki.firebaseapp.com",
-    projectId: "pizza-paniikki",
-    storageBucket: "pizza-paniikki.firebasestorage.app",
-    messagingSenderId: "816172471465",
-    appId: "1:816172471465:web:73b15d6ce1497274f245b8"
+    apiKey: "AIzaSyCICG02jB0_DE4NVfFARo0g0_rqCMY7FtU",
+    authDomain: "honter-boden.firebaseapp.com",
+    projectId: "honter-boden",
+    storageBucket: "honter-boden.firebasestorage.app",
+    messagingSenderId: "232884964219",
+    appId: "1:232884964219:web:eef280049acd3a87854bde"
   };
 
   const fbApp = initializeApp(firebaseConfig);
@@ -2107,9 +2114,6 @@ html, body {
         secretText.classList.remove('show');
         void secretText.offsetWidth;
         secretText.classList.add('show');
-        try { secretAudio.currentTime = 0; } catch (_) {}
-        const p = secretAudio.play();
-        if (p && p.catch) p.catch(() => {});
         clearTimeout(hideTimer);
         hideTimer = setTimeout(() => secretText.classList.remove('show'), 1800);
       });
@@ -2124,7 +2128,7 @@ html, body {
     const caAddr = document.getElementById('caAddr');
     const caCopy = document.getElementById('caCopy');
     const CA_FULL = 'uuxWwFL6G9UjiYRZvWxJrSB18V1oKBgYrmueamREK57';
-    if (caAddr) caAddr.textContent = CA_FULL.slice(0, 5) + '…' + CA_FULL.slice(-4);
+    if (caAddr) caAddr.textContent = CA_FULL.slice(0, 6) + '…' + CA_FULL.slice(-6);
     if (caCopy) {
       caCopy.addEventListener('click', async (e) => {
         e.preventDefault();
@@ -2162,7 +2166,7 @@ html, body {
   });
 
   // ===== Game (v7, unchanged) =====
-  const TOPPINGS = ['Shrooms', 'Pepperoni', 'Olive', 'Crack Pipe', 'Baggie', 'Pill', 'Joint'];
+  const TOPPINGS = ['Shrooms', 'Pepperoni', 'Olive', 'Crack Pipe', 'Baggie', 'Pill', 'Joint', 'Line'];
   const KARVA = 'KARVA';
   const TOPPING_SVG = {
     'Shrooms': 't-herkkusieni',
@@ -2172,6 +2176,7 @@ html, body {
     'Baggie': 't-baggie',
     'Pill': 't-pill',
     'Joint': 't-joint',
+    'Line': 't-line',
     'KARVA': 't-karva'
   };
 
